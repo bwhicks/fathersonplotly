@@ -1,0 +1,35 @@
+---
+title: "Father Son Data"
+author: "BWH"
+date: "9/24/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## father.son data
+
+This data set, from the `usingR` package, demonstrates the idea of regression to the mean based off the work of Sir [Francis Galton](https://en.wikipedia.org/wiki/Francis_Galton) during the late 19th century, comparing the height of sons to their fathers. 
+
+## Visualization of father son data with Loess Smoother
+
+```{r, echo=FALSE, include=FALSE}
+library(UsingR)
+library(plotly)
+data(father.son)
+```
+
+```{r, echo = FALSE}
+
+plot_ly(father.son, x = ~fheight) %>%
+  add_markers(y = ~sheight, showlegend = FALSE) %>%
+  add_lines(y = ~fitted(loess(sheight ~ fheight)),
+            name = "Loess Smoother", showlegend = TRUE) %>%
+  layout(xaxis = list(title = "Father's Height (in.)"),
+         yaxis = list(title = "Son's Height (in.)")
+         )
+
+```
+
